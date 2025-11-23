@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { NFTTraits, TRAITS } from './NFTCustomizer';
 import * as htmlToImage from 'html-to-image';
 import { getTraitImagePath, compositeNFT, canvasToBlob } from '@/lib/nft-composer';
+import { DEFAULT_LAYER_CONFIG, getPercentagePosition } from '@/lib/layer-config';
 import Image from 'next/image';
 
 interface Props {
@@ -79,44 +80,76 @@ export function NFTPreview({ traits }: Props) {
         className="aspect-square rounded-3xl border-8 border-gray-800 overflow-hidden shadow-2xl relative bg-gray-100"
       >
         {useImages && !imageError ? (
-          // Image-based rendering
+          // Image-based rendering with precise positioning
           <div className="relative w-full h-full">
-            {/* Background Layer */}
-            <Image
-              src={getTraitImagePath('background', traits.background)}
-              alt="Background"
-              fill
-              className="object-cover"
-              onError={() => setImageError(true)}
-              priority
-            />
+            {/* Background Layer - Full canvas */}
+            <div 
+              style={{
+                position: 'absolute',
+                ...getPercentagePosition(DEFAULT_LAYER_CONFIG.background),
+                zIndex: DEFAULT_LAYER_CONFIG.background.zIndex,
+              }}
+            >
+              <Image
+                src={getTraitImagePath('background', traits.background)}
+                alt="Background"
+                fill
+                className="object-cover"
+                onError={() => setImageError(true)}
+                priority
+              />
+            </div>
             
-            {/* Cat Layer */}
-            <Image
-              src={getTraitImagePath('cat', traits.cat)}
-              alt="Cat"
-              fill
-              className="object-cover"
-              onError={() => setImageError(true)}
-            />
+            {/* Cat Layer - Positioned according to config */}
+            <div 
+              style={{
+                position: 'absolute',
+                ...getPercentagePosition(DEFAULT_LAYER_CONFIG.cat),
+                zIndex: DEFAULT_LAYER_CONFIG.cat.zIndex,
+              }}
+            >
+              <Image
+                src={getTraitImagePath('cat', traits.cat)}
+                alt="Cat"
+                fill
+                className="object-contain"
+                onError={() => setImageError(true)}
+              />
+            </div>
             
-            {/* Eyes Layer */}
-            <Image
-              src={getTraitImagePath('eyes', traits.eyes)}
-              alt="Eyes"
-              fill
-              className="object-cover"
-              onError={() => setImageError(true)}
-            />
+            {/* Eyes Layer - Positioned on cat face */}
+            <div 
+              style={{
+                position: 'absolute',
+                ...getPercentagePosition(DEFAULT_LAYER_CONFIG.eyes),
+                zIndex: DEFAULT_LAYER_CONFIG.eyes.zIndex,
+              }}
+            >
+              <Image
+                src={getTraitImagePath('eyes', traits.eyes)}
+                alt="Eyes"
+                fill
+                className="object-contain"
+                onError={() => setImageError(true)}
+              />
+            </div>
             
-            {/* Mouth Layer */}
-            <Image
-              src={getTraitImagePath('mouth', traits.mouth)}
-              alt="Mouth"
-              fill
-              className="object-cover"
-              onError={() => setImageError(true)}
-            />
+            {/* Mouth Layer - Positioned below eyes */}
+            <div 
+              style={{
+                position: 'absolute',
+                ...getPercentagePosition(DEFAULT_LAYER_CONFIG.mouth),
+                zIndex: DEFAULT_LAYER_CONFIG.mouth.zIndex,
+              }}
+            >
+              <Image
+                src={getTraitImagePath('mouth', traits.mouth)}
+                alt="Mouth"
+                fill
+                className="object-contain"
+                onError={() => setImageError(true)}
+              />
+            </div>
           </div>
         ) : (
           // Fallback to emoji-based rendering

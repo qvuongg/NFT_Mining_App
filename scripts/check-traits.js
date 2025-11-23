@@ -13,7 +13,7 @@ const TRAITS_DIR = path.join(__dirname, '../public/assets/traits');
 const REQUIRED_FILES = {
   backgrounds: ['green.png', 'blue.png', 'purple.png', 'pink.png'],
   cats: ['orange.png', 'gray.png', 'tuxedo.png', 'white.png'],
-  eyes: ['normal.png', 'sleepy.png', 'heart.png', 'closed.png'],
+  eyes: ['normal.png', 'sleepy.png', 'heart.png', 'close.png'],
   mouths: ['happy.png', 'sad.png', 'silly.png', 'cool.png'],
 };
 

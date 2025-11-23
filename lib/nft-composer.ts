@@ -1,4 +1,5 @@
 import { NFTTraits } from '@/components/NFTCustomizer';
+import { DEFAULT_LAYER_CONFIG, scaleLayerConfig, type LayerConfig } from './layer-config';
 
 /**
  * Assets version - Increment this when you update trait images
@@ -58,7 +59,7 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 /**
- * Composite NFT layers into single canvas
+ * Composite NFT layers into single canvas with precise positioning
  */
 export async function compositeNFT(traits: NFTTraits): Promise<HTMLCanvasElement> {
   const canvas = document.createElement('canvas');
@@ -69,25 +70,73 @@ export async function compositeNFT(traits: NFTTraits): Promise<HTMLCanvasElement
   }
 
   // Set canvas size (1000x1000px)
-  canvas.width = 1000;
-  canvas.height = 1000;
+  const canvasSize = 1000;
+  canvas.width = canvasSize;
+  canvas.height = canvasSize;
 
   // Layer order: background → cat → eyes → mouth
-  const layers: Array<{ category: keyof NFTTraits; traitId: string }> = [
-    { category: 'background', traitId: traits.background },
-    { category: 'cat', traitId: traits.cat },
-    { category: 'eyes', traitId: traits.eyes },
-    { category: 'mouth', traitId: traits.mouth },
+  const layers: Array<{ 
+    category: keyof NFTTraits; 
+    traitId: string;
+    config: LayerConfig;
+  }> = [
+    { 
+      category: 'background', 
+      traitId: traits.background,
+      config: DEFAULT_LAYER_CONFIG.background
+    },
+    { 
+      category: 'cat', 
+      traitId: traits.cat,
+      config: DEFAULT_LAYER_CONFIG.cat
+    },
+    { 
+      category: 'eyes', 
+      traitId: traits.eyes,
+      config: DEFAULT_LAYER_CONFIG.eyes
+    },
+    { 
+      category: 'mouth', 
+      traitId: traits.mouth,
+      config: DEFAULT_LAYER_CONFIG.mouth
+    },
   ];
 
-  // Draw each layer
+  // Draw each layer with positioning
   for (const layer of layers) {
     try {
       const imagePath = getTraitImagePath(layer.category, layer.traitId);
       const img = await loadImage(imagePath);
       
-      // Draw image at full canvas size
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // For background, fill entire canvas
+      if (layer.category === 'background') {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      } else {
+        // For other layers, use configured position and size
+        const { x, y, width, height } = layer.config;
+        
+        // Calculate scale to maintain aspect ratio
+        const imgAspect = img.width / img.height;
+        const configAspect = width / height;
+        
+        let drawWidth = width;
+        let drawHeight = height;
+        let drawX = x;
+        let drawY = y;
+        
+        // Adjust to maintain aspect ratio while fitting in config bounds
+        if (imgAspect > configAspect) {
+          // Image is wider - fit to width
+          drawHeight = width / imgAspect;
+          drawY = y + (height - drawHeight) / 2;
+        } else {
+          // Image is taller - fit to height
+          drawWidth = height * imgAspect;
+          drawX = x + (width - drawWidth) / 2;
+        }
+        
+        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      }
     } catch (error) {
       console.warn(`Failed to load ${layer.category}/${layer.traitId}:`, error);
       // Continue with other layers even if one fails

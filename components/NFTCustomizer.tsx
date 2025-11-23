@@ -27,7 +27,7 @@ const TRAITS = {
     { id: 'normal', name: 'Normal', emoji: '👀' },
     { id: 'sleepy', name: 'Sleepy', emoji: '😴' },
     { id: 'heart', name: 'Heart', emoji: '😍' },
-    { id: 'closed', name: 'Closed', emoji: '😌' },
+    { id: 'close', name: 'Closed', emoji: '😌' },
   ],
   mouth: [
     { id: 'happy', name: 'Happy', emoji: '😊' },

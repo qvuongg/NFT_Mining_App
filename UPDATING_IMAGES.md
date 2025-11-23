@@ -7,6 +7,7 @@ Khi bạn update/thay đổi hình ảnh trong `/public/assets/traits/`, làm th
 ## 📝 Workflow
 
 ### 1. Update Images
+
 ```bash
 # Thay thế file cũ với file mới (cùng tên)
 # Ví dụ: Thay public/assets/traits/cats/orange.png với design mới
@@ -18,14 +19,14 @@ Mở file `lib/nft-composer.ts` và update `ASSETS_VERSION`:
 
 ```typescript
 // Trước
-const ASSETS_VERSION = '1.0.0';
+const ASSETS_VERSION = "1.0.0";
 
 // Sau (increment based on change type)
-const ASSETS_VERSION = '1.0.1';  // For small fixes
+const ASSETS_VERSION = "1.0.1"; // For small fixes
 // hoặc
-const ASSETS_VERSION = '1.1.0';  // For multiple trait updates
+const ASSETS_VERSION = "1.1.0"; // For multiple trait updates
 // hoặc
-const ASSETS_VERSION = '2.0.0';  // For complete redesign
+const ASSETS_VERSION = "2.0.0"; // For complete redesign
 ```
 
 ### 3. Restart Development Server
@@ -56,25 +57,31 @@ Format: `MAJOR.MINOR.PATCH`
 ### When to increment:
 
 **PATCH (x.x.1)** - Small changes:
+
 - Fix single image
 - Color correction
 - Minor tweaks
+
 ```
 1.0.0 → 1.0.1
 ```
 
 **MINOR (x.1.0)** - Medium changes:
+
 - Update multiple traits
 - Add new variations
 - Significant improvements
+
 ```
 1.0.1 → 1.1.0
 ```
 
 **MAJOR (2.0.0)** - Major changes:
+
 - Complete art style change
 - Full collection redesign
 - Breaking changes to composition
+
 ```
 1.1.0 → 2.0.0
 ```
@@ -84,6 +91,7 @@ Format: `MAJOR.MINOR.PATCH`
 ## 💡 Development vs Production
 
 ### Development Mode (npm run dev):
+
 ```
 ✅ Images auto-update with timestamp
 ✅ No caching (instant refresh)
@@ -91,6 +99,7 @@ Format: `MAJOR.MINOR.PATCH`
 ```
 
 ### Production Mode (npm run build):
+
 ```
 ✅ Images cached with version number
 ✅ Better performance
@@ -106,23 +115,27 @@ Format: `MAJOR.MINOR.PATCH`
 **Try in order:**
 
 1. **Hard refresh browser:**
+
    ```
    Cmd/Ctrl + Shift + R
    ```
 
 2. **Clear Next.js cache:**
+
    ```bash
    rm -rf .next
    npm run dev
    ```
 
 3. **Check version updated:**
+
    ```bash
    # In lib/nft-composer.ts
    const ASSETS_VERSION = '1.0.1'; // Should be incremented
    ```
 
 4. **Clear browser cache completely:**
+
    - Chrome: Settings → Privacy → Clear browsing data
    - Select "Cached images and files"
    - Click "Clear data"
@@ -138,6 +151,7 @@ Format: `MAJOR.MINOR.PATCH`
 ## 📋 Quick Reference
 
 ### Update single image:
+
 ```bash
 1. Replace image file
 2. Edit lib/nft-composer.ts: 1.0.0 → 1.0.1
@@ -146,6 +160,7 @@ Format: `MAJOR.MINOR.PATCH`
 ```
 
 ### Update multiple images:
+
 ```bash
 1. Replace multiple image files
 2. Edit lib/nft-composer.ts: 1.0.0 → 1.1.0
@@ -154,6 +169,7 @@ Format: `MAJOR.MINOR.PATCH`
 ```
 
 ### Complete redesign:
+
 ```bash
 1. Replace all image files
 2. Edit lib/nft-composer.ts: 1.0.0 → 2.0.0
@@ -208,21 +224,23 @@ ASSETS_VERSION = '2.0.0'
 ## 🚀 Current Version
 
 Check current version:
+
 ```bash
 grep "ASSETS_VERSION" lib/nft-composer.ts
 ```
 
 Output:
+
 ```typescript
-const ASSETS_VERSION = '1.0.0';  // ← Current version
+const ASSETS_VERSION = "1.0.0"; // ← Current version
 ```
 
 ---
 
 Need help? See:
+
 - `NFT_IMAGES_GUIDE.md` - Main guide
 - `public/assets/traits/README.md` - Image specs
 - Ask in Discord/support channel
 
 Happy updating! 🎨✨
-
