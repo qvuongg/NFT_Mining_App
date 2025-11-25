@@ -20,15 +20,8 @@ export function getTraitImagePath(category: keyof NFTTraits, traitId: string): s
     eyes: `/assets/traits/eyes/${traitId}.png`,
     mouth: `/assets/traits/mouths/${traitId}.png`,
   };
-  
+
   const basePath = paths[category];
-  
-  // In development: Use timestamp for instant updates (no cache)
-  if (process.env.NODE_ENV === 'development') {
-    return `${basePath}?v=${ASSETS_VERSION}&t=${Date.now()}`;
-  }
-  
-  // In production: Use version only (allows caching between deployments)
   return `${basePath}?v=${ASSETS_VERSION}`;
 }
 

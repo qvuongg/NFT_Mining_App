@@ -6,6 +6,7 @@ import * as htmlToImage from 'html-to-image';
 import { getTraitImagePath, compositeNFT, canvasToBlob } from '@/lib/nft-composer';
 import { DEFAULT_LAYER_CONFIG, getPercentagePosition } from '@/lib/layer-config';
 import Image from 'next/image';
+import { useAssetCacheBuster } from '@/hooks/useAssetCacheBuster';
 
 interface Props {
   traits: NFTTraits;
@@ -13,6 +14,7 @@ interface Props {
 
 export function NFTPreview({ traits }: Props) {
   const previewRef = useRef<HTMLDivElement>(null);
+  const cacheBust = useAssetCacheBuster();
   const [useImages, setUseImages] = useState(true);
   const [imageError, setImageError] = useState(false);
 
@@ -90,8 +92,8 @@ export function NFTPreview({ traits }: Props) {
                 zIndex: DEFAULT_LAYER_CONFIG.background.zIndex,
               }}
             >
-              <Image
-                src={getTraitImagePath('background', traits.background)}
+                <Image
+                  src={`${getTraitImagePath('background', traits.background)}${cacheBust}`}
                 alt="Background"
                 fill
                 className="object-cover"
@@ -108,8 +110,8 @@ export function NFTPreview({ traits }: Props) {
                 zIndex: DEFAULT_LAYER_CONFIG.cat.zIndex,
               }}
             >
-              <Image
-                src={getTraitImagePath('cat', traits.cat)}
+                <Image
+                  src={`${getTraitImagePath('cat', traits.cat)}${cacheBust}`}
                 alt="Cat"
                 fill
                 className="object-contain"
@@ -125,8 +127,8 @@ export function NFTPreview({ traits }: Props) {
                 zIndex: DEFAULT_LAYER_CONFIG.eyes.zIndex,
               }}
             >
-              <Image
-                src={getTraitImagePath('eyes', traits.eyes)}
+                <Image
+                  src={`${getTraitImagePath('eyes', traits.eyes)}${cacheBust}`}
                 alt="Eyes"
                 fill
                 className="object-contain"
@@ -142,8 +144,8 @@ export function NFTPreview({ traits }: Props) {
                 zIndex: DEFAULT_LAYER_CONFIG.mouth.zIndex,
               }}
             >
-              <Image
-                src={getTraitImagePath('mouth', traits.mouth)}
+                <Image
+                  src={`${getTraitImagePath('mouth', traits.mouth)}${cacheBust}`}
                 alt="Mouth"
                 fill
                 className="object-contain"

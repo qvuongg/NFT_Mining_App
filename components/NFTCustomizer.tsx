@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { getTraitImagePath } from '@/lib/nft-composer';
+import { useAssetCacheBuster } from '@/hooks/useAssetCacheBuster';
 
 export interface NFTTraits {
   background: string;
@@ -16,6 +19,7 @@ const TRAITS = {
     { id: 'blue', name: 'Blue', color: '#4A90E2' },
     { id: 'purple', name: 'Purple', color: '#9B59B6' },
     { id: 'pink', name: 'Pink', color: '#E91E63' },
+    { id: 'red', name: 'Red', color: '#FF1744' },
   ],
   cat: [
     { id: 'orange', name: 'Orange Cat', emoji: '🐱' },
@@ -44,6 +48,7 @@ interface Props {
 
 export function NFTCustomizer({ traits, onTraitsChange }: Props) {
   const [activeTab, setActiveTab] = useState<keyof NFTTraits>('background');
+  const cacheBust = useAssetCacheBuster();
 
   const handleTraitSelect = (category: keyof NFTTraits, traitId: string) => {
     onTraitsChange({
@@ -92,22 +97,29 @@ export function NFTCustomizer({ traits, onTraitsChange }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="grid grid-cols-2 gap-4"
+            className="grid gap-4"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+            }}
           >
             {activeTab === 'background' &&
               TRAITS.background.map((trait) => (
                 <button
                   key={trait.id}
                   onClick={() => handleTraitSelect('background', trait.id)}
-                  className={`p-6 rounded-xl border-4 transition-all ${
+                  className={`relative rounded-2xl border-4 transition-all overflow-hidden aspect-square ${
                     traits.background === trait.id
                       ? 'border-blue-600 scale-105 shadow-lg'
                       : 'border-gray-300 hover:border-blue-400'
                   }`}
-                  style={{ backgroundColor: trait.color }}
                 >
-                  <div className="text-white font-bold text-lg text-center">
-                    {trait.name}
+                  <div className="absolute inset-0">
+                    <Image
+                      src={`${getTraitImagePath('background', trait.id)}${cacheBust}`}
+                      alt={trait.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </button>
               ))}
@@ -117,14 +129,20 @@ export function NFTCustomizer({ traits, onTraitsChange }: Props) {
                 <button
                   key={trait.id}
                   onClick={() => handleTraitSelect('cat', trait.id)}
-                  className={`p-6 rounded-xl border-4 bg-white transition-all ${
+                  className={`p-3 rounded-2xl border-4 bg-white transition-all overflow-hidden aspect-square ${
                     traits.cat === trait.id
                       ? 'border-blue-600 scale-105 shadow-lg'
                       : 'border-gray-300 hover:border-blue-400'
                   }`}
                 >
-                  <div className="text-6xl mb-2 text-center">{trait.emoji}</div>
-                  <div className="font-bold text-center">{trait.name}</div>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`${getTraitImagePath('cat', trait.id)}${cacheBust}`}
+                      alt={trait.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </button>
               ))}
 
@@ -133,14 +151,20 @@ export function NFTCustomizer({ traits, onTraitsChange }: Props) {
                 <button
                   key={trait.id}
                   onClick={() => handleTraitSelect('eyes', trait.id)}
-                  className={`p-6 rounded-xl border-4 bg-white transition-all ${
+                  className={`p-3 rounded-2xl border-4 bg-white transition-all overflow-hidden aspect-square ${
                     traits.eyes === trait.id
                       ? 'border-blue-600 scale-105 shadow-lg'
                       : 'border-gray-300 hover:border-blue-400'
                   }`}
                 >
-                  <div className="text-6xl mb-2 text-center">{trait.emoji}</div>
-                  <div className="font-bold text-center">{trait.name}</div>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`${getTraitImagePath('eyes', trait.id)}${cacheBust}`}
+                      alt={trait.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </button>
               ))}
 
@@ -149,14 +173,20 @@ export function NFTCustomizer({ traits, onTraitsChange }: Props) {
                 <button
                   key={trait.id}
                   onClick={() => handleTraitSelect('mouth', trait.id)}
-                  className={`p-6 rounded-xl border-4 bg-white transition-all ${
+                  className={`p-3 rounded-2xl border-4 bg-white transition-all overflow-hidden aspect-square ${
                     traits.mouth === trait.id
                       ? 'border-blue-600 scale-105 shadow-lg'
                       : 'border-gray-300 hover:border-blue-400'
                   }`}
                 >
-                  <div className="text-6xl mb-2 text-center">{trait.emoji}</div>
-                  <div className="font-bold text-center">{trait.name}</div>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`${getTraitImagePath('mouth', trait.id)}${cacheBust}`}
+                      alt={trait.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </button>
               ))}
           </motion.div>

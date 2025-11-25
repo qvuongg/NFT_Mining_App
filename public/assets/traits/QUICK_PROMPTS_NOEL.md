@@ -22,6 +22,11 @@ Cute cartoon cozy Christmas fireplace, warm brick fireplace with fire, stockings
 Cute cartoon candy cane wonderland, soft pink (#FFB6C1) and white (#FFFFFF) striped pattern, candy canes and Christmas sweets, playful atmosphere, 1024x1024px, opaque background, kawaii style
 ```
 
+### red.png
+```
+Cute cartoon Christmas sunset background, rich crimson red (#FF1744) gradient sky with golden sparkles and soft snowflakes, silhouette of festive ornaments, warm and dramatic holiday mood, 1024x1024px, opaque background, kawaii style
+```
+
 ---
 
 ## 🐱 CATS

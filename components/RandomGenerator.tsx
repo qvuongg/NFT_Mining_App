@@ -16,52 +16,50 @@ export function RandomGenerator({ onRandomize }: Props) {
     return options[Math.floor(Math.random() * options.length)].id;
   };
 
+  const getRandomTraits = (): NFTTraits => ({
+    background: getRandomTrait('background'),
+    cat: getRandomTrait('cat'),
+    eyes: getRandomTrait('eyes'),
+    mouth: getRandomTrait('mouth'),
+  });
+
   const handleRandomize = async () => {
     if (isAnimating) return;
 
     setIsAnimating(true);
 
-    // Animation duration
-    const animationDuration = 2000;
-    const updateInterval = 50;
+    const steps = 28;
+    const baseInterval = 40;
+    const maxInterval = 180;
+    let accumulatedDelay = 0;
 
-    // Start rapid cycling
-    const intervalId = setInterval(() => {
-      onRandomize({
-        background: getRandomTrait('background'),
-        cat: getRandomTrait('cat'),
-        eyes: getRandomTrait('eyes'),
-        mouth: getRandomTrait('mouth'),
-      });
-    }, updateInterval);
+    for (let i = 0; i < steps; i++) {
+      const progress = i / (steps - 1);
+      const eased = 1 - Math.cos((progress * Math.PI) / 2); // ease-out
+      const interval = baseInterval + eased * (maxInterval - baseInterval);
+      accumulatedDelay += interval;
 
-    // Stop after animation duration
+      setTimeout(() => {
+        onRandomize(getRandomTraits());
+      }, accumulatedDelay);
+    }
+
     setTimeout(() => {
-      clearInterval(intervalId);
-      
-      // Final selection with easing stop
-      const finalTraits: NFTTraits = {
-        background: getRandomTrait('background'),
-        cat: getRandomTrait('cat'),
-        eyes: getRandomTrait('eyes'),
-        mouth: getRandomTrait('mouth'),
-      };
-      
-      onRandomize(finalTraits);
+      onRandomize(getRandomTraits());
       setIsAnimating(false);
-    }, animationDuration);
+    }, accumulatedDelay + 220);
   };
 
   return (
     <motion.button
       onClick={handleRandomize}
       disabled={isAnimating}
-      className={`w-full px-6 py-4 font-bold text-lg rounded-xl border-4 transition-all ${
+      className={`w-full px-6 py-4 font-extrabold text-lg rounded-2xl transition-all shadow-lg shadow-rose-200/40 ${
         isAnimating
-          ? 'bg-gray-400 border-gray-600 cursor-not-allowed'
-          : 'bg-white border-blue-600 text-blue-600 hover:bg-blue-50 hover:scale-105'
+          ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+          : 'bg-gradient-to-r from-rose-500 via-amber-400 to-emerald-400 text-white hover:shadow-2xl hover:shadow-rose-200/60'
       }`}
-      whileTap={{ scale: isAnimating ? 1 : 0.95 }}
+      whileTap={{ scale: isAnimating ? 1 : 0.96 }}
     >
       {isAnimating ? (
         <div className="flex items-center justify-center gap-3">

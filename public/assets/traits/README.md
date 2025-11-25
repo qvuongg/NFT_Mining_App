@@ -10,7 +10,8 @@ traits/
 │   ├── green.png
 │   ├── blue.png
 │   ├── purple.png
-│   └── pink.png
+│   ├── pink.png
+│   └── red.png
 ├── cats/           # Body của mèo
 │   ├── orange.png
 │   ├── gray.png

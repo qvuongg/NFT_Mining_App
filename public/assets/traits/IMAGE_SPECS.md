@@ -11,6 +11,7 @@ green.png    → Background màu xanh lá
 blue.png     → Background màu xanh dương
 purple.png   → Background màu tím
 pink.png     → Background màu hồng
+red.png      → Background màu đỏ
 ```
 
 ### Cats (cats/)

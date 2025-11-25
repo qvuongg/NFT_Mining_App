@@ -35,14 +35,18 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#fef4f4] via-[#f0e8ff] to-[#dff7ff]">
+      {/* Decorative snow layers */}
+      <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:120px_120px]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/60 to-transparent" />
+
       {/* Header */}
-      <header className="bg-white border-b-4 border-gray-800 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="relative border-b border-white/40 backdrop-blur bg-white/70 shadow-xl shadow-emerald-100/40">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <svg
-              className="w-10 h-10 text-blue-600"
+              className="w-12 h-12 text-rose-500 drop-shadow-lg"
               viewBox="0 0 48 48"
               fill="currentColor"
             >
@@ -58,11 +62,16 @@ export default function Home() {
                 B
               </text>
             </svg>
-            <h1 className="text-2xl font-black text-gray-800">CustOMeow</h1>
+            <div>
+              <h1 className="text-3xl font-black text-emerald-700 tracking-tight">
+                CustOMeow Noel
+              </h1>
+              <p className="text-sm text-gray-600">Mint your holiday kitty ✨</p>
+            </div>
           </div>
 
           {/* Phase Indicator */}
-          <div className="flex-1 max-w-md mx-8">
+          <div className="flex-1 max-w-md mx-8 hidden lg:block">
             <PhaseIndicator />
           </div>
 
@@ -75,7 +84,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="relative max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Panel - Preview */}
           <div className="space-y-6">
@@ -91,8 +100,16 @@ export default function Home() {
         </div>
 
         {/* Instructions */}
-        <div className="mt-16 bg-white rounded-2xl border-4 border-gray-800 p-8 shadow-xl">
-          <h2 className="text-2xl font-black text-gray-800 mb-4">How to Mint</h2>
+        <div className="mt-16 rounded-3xl border border-white/60 bg-white/80 backdrop-blur-lg p-8 shadow-xl shadow-emerald-100/50">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="text-3xl">🎄</div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-rose-400 font-semibold">
+                Holiday Steps
+              </p>
+              <h2 className="text-3xl font-black text-emerald-800">Mint in Three Beats</h2>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl mb-3">🐦</div>
@@ -120,15 +137,15 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-16">
+      <footer className="relative bg-emerald-900 text-white py-8 mt-16 shadow-inner shadow-emerald-700/40">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-gray-400">
+          <p className="text-emerald-100">
             Built on{' '}
             <a
               href="https://base.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300"
+              className="text-rose-200 hover:text-white font-semibold"
             >
               Base
             </a>{' '}
@@ -137,7 +154,7 @@ export default function Home() {
               href="https://onchainkit.xyz"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300"
+              className="text-rose-200 hover:text-white font-semibold"
             >
               OnchainKit
             </a>

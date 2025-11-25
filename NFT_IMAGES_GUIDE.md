@@ -19,6 +19,7 @@ public/assets/traits/
 - `blue.png` - Xanh dương (#4A90E2)
 - `purple.png` - Tím (#9B59B6)
 - `pink.png` - Hồng (#E91E63)
+- `red.png` - Đỏ (#FF1744)
 
 ### Cats (cats/)
 - `orange.png` - Mèo cam

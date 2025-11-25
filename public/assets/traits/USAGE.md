@@ -18,6 +18,7 @@ Bạn cần thêm **16 hình ảnh PNG** vào các thư mục sau:
 ✓ blue.png      - Background màu xanh dương (#4A90E2)
 ✓ purple.png    - Background màu tím (#9B59B6)
 ✓ pink.png      - Background màu hồng (#E91E63)
+✓ red.png       - Background màu đỏ (#FF1744)
 ```
 
 ### 2. Cats (cats/)
@@ -105,7 +106,7 @@ Sau khi thêm images:
    cd public/assets/traits
    ls backgrounds/  # Should show: blue.png green.png pink.png purple.png
    ls cats/         # Should show: gray.png orange.png tuxedo.png white.png
-   ls eyes/         # Should show: closed.png heart.png normal.png sleepy.png
+   ls eyes/         # Should show: close.png heart.png normal.png sleepy.png
    ls mouths/       # Should show: cool.png happy.png sad.png silly.png
    ```
 

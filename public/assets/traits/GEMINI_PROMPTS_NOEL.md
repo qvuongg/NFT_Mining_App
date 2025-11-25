@@ -77,6 +77,22 @@ High quality, digital art
 Format: PNG, opaque background
 ```
 
+### 5. red.png - Crimson Holiday Glow
+
+```
+Cute cartoon crimson Christmas evening background, deep red gradient sky (#FF1744) fading to warm gold (#FFD700), soft glowing bokeh lights, gentle snowflakes falling, silhouettes of ornaments and garlands along the edges, magical festive atmosphere, perfect for NFT background layer, solid color base with glowing pattern, dramatic Christmas mood, 1024x1024 pixels, professional digital art, clean edges
+
+Style: Cute cartoon/kawaii, rich warm colors
+Color: Crimson red (#FF1744) blending into gold (#FFD700)
+Position: Full canvas coverage
+Transparency: NO (opaque background)
+Base modifier: "cute cartoon style, kawaii aesthetic, rich crimson colors, glowing Christmas lights, magical evening atmosphere, simple shapes, clean lines"
+
+Image size: 1024x1024 pixels
+High quality, digital art
+Format: PNG, opaque background
+```
+
 ---
 
 ## 🐱 CATS (4 images)
