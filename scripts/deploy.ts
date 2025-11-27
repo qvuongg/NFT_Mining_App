@@ -8,7 +8,7 @@ async function main() {
 
   // Get network
   const network = await ethers.provider.getNetwork();
-  const chainId = network.chainId;
+  const chainId = Number(network.chainId);
 
   console.log(`\nDeploying to network: ${network.name} (chainId: ${chainId})`);
 
@@ -19,14 +19,14 @@ async function main() {
   let usdcAddress: string;
 
   // Deploy MockUSDC on testnet, use real USDC on mainnet
-  if (chainId === 84532n) { // Base Sepolia
+  if (chainId === 84532) { // Base Sepolia
     console.log("\n1. Deploying MockUSDC...");
     const MockUSDC = await ethers.getContractFactory("MockUSDC");
     const mockUSDC = await MockUSDC.deploy();
     await mockUSDC.waitForDeployment();
     usdcAddress = await mockUSDC.getAddress();
     console.log("MockUSDC deployed to:", usdcAddress);
-  } else if (chainId === 8453n) { // Base mainnet
+  } else if (chainId === 8453) { // Base mainnet
     usdcAddress = USDC_MAINNET;
     console.log("\n1. Using real USDC:", usdcAddress);
   } else {

@@ -1,6 +1,12 @@
+import * as dotenv from "dotenv";
+
+if (!process.env.TS_NODE_PROJECT) {
+  process.env.TS_NODE_PROJECT = "tsconfig.hardhat.json";
+}
+
+import "ts-node/register";
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import * as dotenv from "dotenv";
 
 dotenv.config();
 

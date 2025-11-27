@@ -1,0 +1,3 @@
+await nft.setPhase(1); // 0 = Closed, 1 = Whitelist, 2 = Public
+const nft = await NFT.attach("0xE8F3f8454184f8A2778769a6Bc701f3ae46d4E02");
+const NFT = await ethers.getContractFactory("NFTCollection");

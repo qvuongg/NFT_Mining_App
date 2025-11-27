@@ -60,14 +60,14 @@ export function NFTPreview({ traits }: Props) {
         if (!previewRef.current) return;
         
         const dataUrl = await htmlToImage.toJpeg(previewRef.current, {
-          quality: 1.0,
-          pixelRatio: 2,
-        });
+        quality: 1.0,
+        pixelRatio: 2,
+      });
 
-        const link = document.createElement('a');
-        link.download = `customeow-${Date.now()}.jpg`;
-        link.href = dataUrl;
-        link.click();
+      const link = document.createElement('a');
+      link.download = `customeow-${Date.now()}.jpg`;
+      link.href = dataUrl;
+      link.click();
       }
     } catch (error) {
       console.error('Failed to download image:', error);
@@ -156,40 +156,40 @@ export function NFTPreview({ traits }: Props) {
         ) : (
           // Fallback to emoji-based rendering
           <div style={{ backgroundColor: background?.color || '#2D8B7A' }} className="w-full h-full">
-            {/* Decorative elements */}
-            <div className="absolute top-4 left-4 w-20 h-20 opacity-20">
-              <svg viewBox="0 0 100 100" fill="black">
-                <line x1="0" y1="0" x2="100" y2="100" stroke="black" strokeWidth="8" />
-                <line x1="100" y1="0" x2="0" y2="100" stroke="black" strokeWidth="8" />
-              </svg>
-            </div>
-            <div className="absolute top-4 right-4 w-20 h-20 opacity-20">
-              <svg viewBox="0 0 100 100" fill="black">
-                <line x1="0" y1="0" x2="100" y2="100" stroke="black" strokeWidth="8" />
-                <line x1="100" y1="0" x2="0" y2="100" stroke="black" strokeWidth="8" />
-              </svg>
-            </div>
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-4 w-20 h-20 opacity-20">
+          <svg viewBox="0 0 100 100" fill="black">
+            <line x1="0" y1="0" x2="100" y2="100" stroke="black" strokeWidth="8" />
+            <line x1="100" y1="0" x2="0" y2="100" stroke="black" strokeWidth="8" />
+          </svg>
+        </div>
+        <div className="absolute top-4 right-4 w-20 h-20 opacity-20">
+          <svg viewBox="0 0 100 100" fill="black">
+            <line x1="0" y1="0" x2="100" y2="100" stroke="black" strokeWidth="8" />
+            <line x1="100" y1="0" x2="0" y2="100" stroke="black" strokeWidth="8" />
+          </svg>
+        </div>
 
-            {/* Cat body (simplified box) */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1/2 bg-gray-700 rounded-t-3xl flex flex-col items-center justify-start pt-8">
-              {/* Cat face */}
-              <div className="text-9xl mb-4">{cat?.emoji || '🐱'}</div>
-              
-              {/* Eyes */}
-              <div className="text-4xl mb-2">{eyes?.emoji || '👀'}</div>
-              
-              {/* Mouth */}
-              <div className="text-3xl">{mouth?.emoji || '😊'}</div>
+        {/* Cat body (simplified box) */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1/2 bg-gray-700 rounded-t-3xl flex flex-col items-center justify-start pt-8">
+          {/* Cat face */}
+          <div className="text-9xl mb-4">{cat?.emoji || '🐱'}</div>
+          
+          {/* Eyes */}
+          <div className="text-4xl mb-2">{eyes?.emoji || '👀'}</div>
+          
+          {/* Mouth */}
+          <div className="text-3xl">{mouth?.emoji || '😊'}</div>
 
-              {/* Cat paws */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-8">
-                <div className="w-16 h-8 bg-white rounded-t-full"></div>
-                <div className="w-16 h-8 bg-white rounded-t-full"></div>
-              </div>
-            </div>
+          {/* Cat paws */}
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-8">
+            <div className="w-16 h-8 bg-white rounded-t-full"></div>
+            <div className="w-16 h-8 bg-white rounded-t-full"></div>
+          </div>
+        </div>
 
-            {/* Ground */}
-            <div className="absolute bottom-0 w-full h-1/3 bg-orange-700"></div>
+        {/* Ground */}
+        <div className="absolute bottom-0 w-full h-1/3 bg-orange-700"></div>
             
             {/* Warning Badge */}
             <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-xs font-bold">

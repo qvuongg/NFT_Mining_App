@@ -18,7 +18,11 @@ contract NFTCollection is ERC721, ERC721URIStorage, Ownable, EIP712 {
     using ECDSA for bytes32;
 
     // Minting phases
-    enum MintPhase { CLOSED, WHITELIST, PUBLIC }
+    enum MintPhase {
+        CLOSED,
+        WHITELIST,
+        PUBLIC
+    }
     MintPhase public currentPhase;
 
     // USDC token address (Base mainnet)
@@ -56,10 +60,14 @@ contract NFTCollection is ERC721, ERC721URIStorage, Ownable, EIP712 {
     constructor(
         address _signer,
         address _usdcAddress
-    ) ERC721("CustOMeow", "MEOW") EIP712("NFTCollection", "1") Ownable(msg.sender) {
+    )
+        ERC721("CustOMeow", "MEOW")
+        EIP712("NFTCollection", "1")
+        Ownable(msg.sender)
+    {
         require(_signer != address(0), "Invalid signer address");
         require(_usdcAddress != address(0), "Invalid USDC address");
-        
+
         signer = _signer;
         USDC = IERC20(_usdcAddress);
         currentPhase = MintPhase.CLOSED;
@@ -70,51 +78,53 @@ contract NFTCollection is ERC721, ERC721URIStorage, Ownable, EIP712 {
      * @dev Phase 1: Whitelist mint with signature verification
      * Free for X/Twitter followers
      * @param signature EIP-712 signature from backend
-     * @param tokenURI IPFS URI for NFT metadata
+     * @param metadataURI IPFS URI for NFT metadata
      */
     function whitelistMint(
         bytes calldata signature,
-        string calldata tokenURI
+        string calldata metadataURI
     ) external {
         require(currentPhase == MintPhase.WHITELIST, "Not in whitelist phase");
-        
+
         // Verify signature
         uint256 nonce = nonces[msg.sender];
-        bytes32 structHash = keccak256(abi.encode(WHITELIST_TYPEHASH, msg.sender, nonce));
+        bytes32 structHash = keccak256(
+            abi.encode(WHITELIST_TYPEHASH, msg.sender, nonce)
+        );
         bytes32 hash = _hashTypedDataV4(structHash);
         address recoveredSigner = hash.recover(signature);
-        
+
         require(recoveredSigner == signer, "Invalid signature");
-        
+
         // Increment nonce to prevent replay
         nonces[msg.sender]++;
-        
+
         // Mint NFT
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, tokenURI);
-        
+        _setTokenURI(tokenId, metadataURI);
+
         emit WhitelistMinted(msg.sender, tokenId);
     }
 
     /**
      * @dev Phase 2: Public mint for 1 USDC
-     * @param tokenURI IPFS URI for NFT metadata
+     * @param metadataURI IPFS URI for NFT metadata
      */
-    function publicMint(string calldata tokenURI) external {
+    function publicMint(string calldata metadataURI) external {
         require(currentPhase == MintPhase.PUBLIC, "Not in public phase");
-        
+
         // Transfer 1 USDC from minter to contract
         require(
             USDC.transferFrom(msg.sender, address(this), MINT_PRICE),
             "USDC transfer failed"
         );
-        
+
         // Mint NFT
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, tokenURI);
-        
+        _setTokenURI(tokenId, metadataURI);
+
         emit PublicMinted(msg.sender, tokenId);
     }
 
@@ -175,22 +185,15 @@ contract NFTCollection is ERC721, ERC721URIStorage, Ownable, EIP712 {
         return _baseTokenURI;
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId
+    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721URIStorage) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }
-
